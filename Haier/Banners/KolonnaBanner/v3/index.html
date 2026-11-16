@@ -6,7 +6,7 @@
 <title>Haier — баннер колонны, вариант 3</title>
 <link rel="preload" href="assets/fonts/FuturaPT-Demi.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FuturaPT-Medium.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/bg.webp" as="image">
+<link rel="preload" href="assets/bg.avif" as="image" type="image/avif">
 <link rel="stylesheet" href="banner-v3.css">
 <style>
   html, body { margin: 0; height: 100%; background: #dcdcdc; overflow: hidden; }
@@ -22,7 +22,7 @@
   <section class="kb" aria-label="Соберите стирально-сушильную колонну">
     <div class="kb__scene">
       <div class="kb__world">
-        <img class="kb__bg3" src="assets/bg.webp" alt="">
+        <picture><source type="image/avif" srcset="assets/bg.avif"><img class="kb__bg3" src="assets/bg.webp" alt=""></picture>
       </div>
     </div>
     <!-- машины — отдельным слоем с той же камерой: при отдалении колонна выходит за верх баннера -->

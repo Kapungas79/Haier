@@ -6,7 +6,7 @@
 <title>Haier — баннер колонны</title>
 <link rel="preload" href="assets/fonts/FuturaPT-Demi.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FuturaPT-Medium.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/banner-bg.webp" as="image">
+<link rel="preload" href="assets/banner-bg.avif" as="image" type="image/avif">
 <link rel="stylesheet" href="banner.css">
 <style>
   html, body { margin: 0; height: 100%; background: #dcdcdc; overflow: hidden; }
@@ -29,12 +29,12 @@
 
     <div class="kb__shadow"></div>
     <div class="kb__cols">
-      <img class="kb__col is-on" src="assets/col2.webp" alt="Колонна Haier, вариант 2" decoding="async">
-      <img class="kb__col" src="assets/col3.webp" alt="Колонна Haier, вариант 3" decoding="async">
-      <img class="kb__col" src="assets/col4.webp" alt="Колонна Haier, вариант 4" decoding="async">
-      <img class="kb__col" src="assets/col1.webp" alt="Колонна Haier, вариант 1" decoding="async">
+      <picture><source type="image/avif" srcset="assets/col2.avif"><img class="kb__col is-on" src="assets/col2.webp" alt="Колонна Haier, вариант 2" decoding="async"></picture>
+      <picture><source type="image/avif" srcset="assets/col3.avif"><img class="kb__col" src="assets/col3.webp" alt="Колонна Haier, вариант 3" decoding="async"></picture>
+      <picture><source type="image/avif" srcset="assets/col4.avif"><img class="kb__col" src="assets/col4.webp" alt="Колонна Haier, вариант 4" decoding="async"></picture>
+      <picture><source type="image/avif" srcset="assets/col1.avif"><img class="kb__col" src="assets/col1.webp" alt="Колонна Haier, вариант 1" decoding="async"></picture>
     </div>
-    <img class="kb__baskets" src="assets/baskets.webp" alt="" decoding="async">
+    <picture><source type="image/avif" srcset="assets/baskets.avif"><img class="kb__baskets" src="assets/baskets.webp" alt="" decoding="async"></picture>
 
     <button class="kb__arrow kb__arrow--prev" type="button" aria-label="Предыдущая колонна"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7242 18.1977C15.1147 17.8071 15.1147 17.174 14.7242 16.7834L9.93131 11.9906L14.7242 7.19766C15.1147 6.80713 15.1147 6.17397 14.7242 5.78344C14.3337 5.39292 13.7005 5.39292 13.31 5.78344L7.80999 11.2834C7.41947 11.674 7.41947 12.3071 7.80999 12.6977L13.31 18.1977C13.7005 18.5882 14.3337 18.5882 14.7242 18.1977Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"/></svg></button>
     <button class="kb__arrow kb__arrow--next" type="button" aria-label="Следующая колонна"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7242 18.1977C15.1147 17.8071 15.1147 17.174 14.7242 16.7834L9.93131 11.9906L14.7242 7.19766C15.1147 6.80713 15.1147 6.17397 14.7242 5.78344C14.3337 5.39292 13.7005 5.39292 13.31 5.78344L7.80999 11.2834C7.41947 11.674 7.41947 12.3071 7.80999 12.6977L13.31 18.1977C13.7005 18.5882 14.3337 18.5882 14.7242 18.1977Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"/></svg></button>

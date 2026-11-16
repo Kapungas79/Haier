@@ -27,12 +27,19 @@
   const mscene = root.querySelector('.kb__mscene');
 
   const washTop = (n) => G.floor - G.models[n].washBody;
+  // картинка с AVIF (основной) и WebP (запасной): <picture> без своей коробки (display: contents)
+  const pic = (im) => {
+    if (/\/slab/.test(im.getAttribute('src'))) return im;   // соединители — только WebP
+    const p = document.createElement('picture'), so = document.createElement('source');
+    so.type = 'image/avif'; so.srcset = im.getAttribute('src').replace(/\.webp$/, '.avif');
+    p.append(so, im); return p;
+  };
   const mk = (box, src, n, top, cls, kind) => {
     const g = G.models[n], im = new Image();
     im.src = src; im.alt = ''; im.className = cls; im.decoding = 'async';
     const left = (box.classList.contains('kb__link') ? CW - parseFloat(box.style.left || 0) : CW) - g.cx[kind];
     Object.assign(im.style, { left: left + 'px', top: top + 'px', width: g.w + 'px' });
-    box.appendChild(im); return im;
+    box.appendChild(pic(im)); return im;
   };
   const dryBox = root.querySelector('.kb__dryers');
   const linkBox = root.querySelector('.kb__links');
@@ -57,7 +64,7 @@
     const b = new Image();
     b.src = 'assets/baskets.webp'; b.alt = ''; b.className = 'kb__baskets3'; b.decoding = 'async';
     Object.assign(b.style, { left: front + (V1.bx - V1.mx) * r + 'px', top: G.floor - (V1.bottom - V1.by) * r + 'px', width: V1.bw * r + 'px' });
-    root.querySelector('.kb__mworld').appendChild(b);  // поверх машин
+    root.querySelector('.kb__mworld').appendChild(pic(b));  // поверх машин
     return b;
   })();
   const basketsShow = (on, ms) => {
@@ -114,8 +121,8 @@
     const c = track.children[i];
     return VIEW_H / 2 - (c.offsetTop + c.offsetHeight / 2);
   };
-  // плашки едут «гусеницей»: верхняя (ведущая — всё движется вверх) первой, каждая следующая через 0.05 с
-  const CATER = 50 * SPEED;              // задержка между плашками 0.05 с, ед. wait
+  // плашки едут «гусеницей»: верхняя (ведущая — всё движется вверх) первой, каждая следующая через 0.08 с
+  const CATER = 80 * SPEED;              // задержка между плашками 0.08 с, ед. wait
   const cards = [...track.children];
   const setY = (y, ms, ease = EASE) => {
     cards.forEach((c, i) => {
@@ -292,7 +299,7 @@
       await join();
       await wait(500);
       // отдаляемся: колонна целиком в баннере, стрелки уходят
-      root.classList.add('is-out');
+      root.classList.add('is-arrows-in', 'is-gone');   // стрелки расходятся от машины и гаснут
       basketsShow(true, 2000);          // корзинки проявляются вместе с отдалением
       await cam(outCam(ORDER[di]), 2000, ZOOM_EASE);   // 1 с реального времени
       await wait(1400);
@@ -307,6 +314,7 @@
       flyUp(links[di], FLY, 1200);
       await cam(CAM.washer, 1700);
       dryShow(false); unjoin();         // сушилка снова висит и спрятана
+      root.classList.remove('is-arrows-in', 'is-gone'); root.classList.add('is-out');   // стрелки ждут у центра (невидимы)
     }
   }
 

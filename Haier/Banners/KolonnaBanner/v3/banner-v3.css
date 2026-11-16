@@ -141,3 +141,8 @@
   85% { stroke-dashoffset: 0; opacity: 0; }
   100% { stroke-dashoffset: -1; opacity: 0; }
 }
+picture { display: contents; }   /* <picture> не даёт своей коробки — позиционируется сама картинка */
+/* исчезновение стрелок (отдаление): расходятся от машины на 20 px в прозрачность — тем же изингом, что появление */
+.kb.is-gone .kb__arrow { opacity: 0; pointer-events: none; }
+.kb.is-gone .kb__arrow--prev { transform: translateX(-20px); }
+.kb.is-gone .kb__arrow--next { transform: translateX(20px); }

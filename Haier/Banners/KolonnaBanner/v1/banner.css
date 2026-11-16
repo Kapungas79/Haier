@@ -20,6 +20,7 @@
   position: absolute; inset: 0;
   border-radius: 12px;
   background: #d9d0c6 url(assets/banner-bg.webp) center / cover no-repeat;
+  background-image: image-set(url(assets/banner-bg.avif) type("image/avif"), url(assets/banner-bg.webp) type("image/webp"));
 }
 
 /* текст слева */
@@ -105,3 +106,4 @@
 }
 .kb__cursor svg { display: block; width: 100%; height: 100%; transition: transform .12s ease-out; transform-origin: 2px 2px; }
 .kb__cursor.is-pressed svg { transform: scale(.85); transition-duration: .08s; }
+picture { display: contents; }   /* <picture> без своей коробки — позиционируется сама картинка */
