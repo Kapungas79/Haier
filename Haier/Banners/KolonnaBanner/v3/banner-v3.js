@@ -51,7 +51,8 @@
     wrap.className = 'kb__link';
     wrap.style.top = washTop(n) - G.models[n].linkH + 'px';
     linkBox.appendChild(wrap);
-    wrap.items = [mk(wrap, `assets/slab${n}_bad.webp`, n, 0, 'kb__m', 'slab_bad'), mk(wrap, `assets/slab${n}.webp`, n, 0, 'kb__m', 'slab')];
+    // подходящий (в цвет модели) → другой цвет → серебристый → снова подходящий: 3 клика, ритм как у машин
+    wrap.items = [mk(wrap, `assets/slab${n}.webp`, n, 0, 'kb__m', 'slab'), mk(wrap, `assets/slab${n}_bad.webp`, n, 0, 'kb__m', 'slab_bad'), mk(wrap, `assets/slab${n}_alt.webp`, n, 0, 'kb__m', 'slab_alt')];
     return wrap;
   });
   // корзинки — только в финале: проявляются при отдалении, соразмерно колонне как в варианте 1
@@ -149,10 +150,11 @@
     nw.classList.add('is-on');
     return j;
   }
-  let target = 'washer';
+  let target = 'washer', li = 0;
   const nextItem = () => {
     if (target === 'washer') wi = swap(washers, wi, 1);
-    else di = swap(dryers, di, 1);
+    else if (target === 'dryer') di = swap(dryers, di, 1);
+    else li = swap(links[di].items, li, 1);
   };
   // иконка соединителя: обе плоскости 3 раза сходятся друг к другу (не до конца) и расходятся обратно
   async function icoJoin() {
@@ -172,7 +174,7 @@
   async function join() {
     const l = links[di];
     const mid = -GAP / 2;
-    l.items.forEach((im, k) => {         // старт: виден неподходящий
+    l.items.forEach((im, k) => {         // старт: виден подходящий, круг из 3 кликов вернёт к нему
       im.style.transition = 'none'; im.style.transform = ''; im.classList.toggle('is-on', k === 0);
     });                            // зазор между низом сушилки и верхом стиральной = GAP + плита → плита ровно посередине
     l.style.transition = 'none';
@@ -181,7 +183,8 @@
     l.style.transition = `opacity ${350 / SPEED}ms ease`;
     l.style.opacity = 1;
     await wait(450);
-    await press(next, () => swap(l.items, 0, 1));   // листаем к подходящему по цвету
+    target = 'link'; li = 0;
+    await clicks(3);                    // перебираем 3 соединителя — как машины
     await wait(900);
     moveTo(REST, 1300);                 // курсор уходит в сторону, пока соединяются
     l.style.transition = `transform ${520 / SPEED}ms cubic-bezier(.5, 0, .4, 1)`;
