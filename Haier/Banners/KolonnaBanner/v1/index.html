@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haier — баннер колонны</title>
+<link rel="preload" href="assets/fonts/FuturaPT-Demi.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/FuturaPT-Medium.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/banner-bg.webp" as="image">
+<link rel="stylesheet" href="banner.css">
+<style>
+  html, body { margin: 0; height: 100%; background: #dcdcdc; overflow: hidden; }
+  /* страница-подложка 1920x1080 — картинкой, масштаб под окно */
+  .stage { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
+           transform-origin: 0 0; background: #fff url(assets/page.webp) 0 0 / 1920px 1080px no-repeat; }
+  .stage .kb { position: absolute; left: 304px; top: 360px; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <section class="kb" aria-label="Соберите стирально-сушильную колонну">
+    <div class="kb__bg"></div>
+
+    <div class="kb__text">
+      <h2 class="kb__title">Соберите стирально-<br>сушильную колонну</h2>
+      <a class="kb__cta" href="#">Начать подбор</a>
+    </div>
+
+    <div class="kb__shadow"></div>
+    <div class="kb__cols">
+      <img class="kb__col is-on" src="assets/col2.webp" alt="Колонна Haier, вариант 2" decoding="async">
+      <img class="kb__col" src="assets/col3.webp" alt="Колонна Haier, вариант 3" decoding="async">
+      <img class="kb__col" src="assets/col4.webp" alt="Колонна Haier, вариант 4" decoding="async">
+      <img class="kb__col" src="assets/col1.webp" alt="Колонна Haier, вариант 1" decoding="async">
+    </div>
+    <img class="kb__baskets" src="assets/baskets.webp" alt="" decoding="async">
+
+    <button class="kb__arrow kb__arrow--prev" type="button" aria-label="Предыдущая колонна"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7242 18.1977C15.1147 17.8071 15.1147 17.174 14.7242 16.7834L9.93131 11.9906L14.7242 7.19766C15.1147 6.80713 15.1147 6.17397 14.7242 5.78344C14.3337 5.39292 13.7005 5.39292 13.31 5.78344L7.80999 11.2834C7.41947 11.674 7.41947 12.3071 7.80999 12.6977L13.31 18.1977C13.7005 18.5882 14.3337 18.5882 14.7242 18.1977Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"/></svg></button>
+    <button class="kb__arrow kb__arrow--next" type="button" aria-label="Следующая колонна"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7242 18.1977C15.1147 17.8071 15.1147 17.174 14.7242 16.7834L9.93131 11.9906L14.7242 7.19766C15.1147 6.80713 15.1147 6.17397 14.7242 5.78344C14.3337 5.39292 13.7005 5.39292 13.31 5.78344L7.80999 11.2834C7.41947 11.674 7.41947 12.3071 7.80999 12.6977L13.31 18.1977C13.7005 18.5882 14.3337 18.5882 14.7242 18.1977Z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"/></svg></button>
+
+    <div class="kb__steps">
+      <div class="kb__track">
+        <div class="kb__card"><span class="kb__num">1</span><p>Выберите<br>стиральную<br>машину</p><img src="assets/icon1.svg" alt=""></div>
+        <div class="kb__card"><span class="kb__num">2</span><p>Добавьте<br>сушильную<br>машину</p><img src="assets/icon2.svg" alt=""></div>
+        <div class="kb__card"><span class="kb__num">3</span><p>Подберите<br>соединительный<br>элемент</p><img src="assets/icon3.svg" alt=""></div>
+      </div>
+    </div>
+
+    <div class="kb__cursor" aria-hidden="true">
+      <svg viewBox="0 0 22 32"><path d="M2 2v24l6-5.6 4 9.4 4.2-1.8-4-9.2H20z" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    </div>
+  </section>
+
+</div>
+<script>
+  // вписываем страницу 1920x1080 в окно
+  (function () {
+    const s = document.getElementById('stage');
+    const fit = () => {
+      const k = Math.min(innerWidth / 1920, innerHeight / 1080);
+      s.style.transform = `scale(${k}) translate(-50%, -50%)`;
+    };
+    addEventListener('resize', fit); fit();
+  })();
+</script>
+<script src="banner.js" defer></script>
+</body>
+</html>

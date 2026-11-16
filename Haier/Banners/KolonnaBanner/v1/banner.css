@@ -1,0 +1,107 @@
+/* Haier — баннер «Соберите стирально-сушильную колонну». Размер по макету 1312x243. */
+@font-face { font-family: "KB Futura"; font-weight: 500; font-display: swap; src: url(assets/fonts/FuturaPT-Medium.woff2) format("woff2"); }
+@font-face { font-family: "KB Futura"; font-weight: 600; font-display: swap; src: url(assets/fonts/FuturaPT-Demi.woff2) format("woff2"); }
+@font-face { font-family: "KB Futura"; font-weight: 800; font-display: swap; src: url(assets/fonts/FuturaPT-Heavy.woff2) format("woff2"); }
+
+.kb {
+  --kb-ease: cubic-bezier(.65, 0, .35, 1);
+  --kb-col-ease: cubic-bezier(0.19, 1, 0.22, 1); /* смена колонн — Snappy Out, 1 с */
+  position: relative;
+  width: 1312px;
+  height: 243px;
+  font-family: "KB Futura", "Futura PT", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+.kb * { box-sizing: border-box; }
+
+/* фон */
+.kb__bg {
+  position: absolute; inset: 0;
+  border-radius: 12px;
+  background: #d9d0c6 url(assets/banner-bg.webp) center / cover no-repeat;
+}
+
+/* текст слева */
+.kb__text {
+  position: absolute; left: 32px; top: 0; width: 400px; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+}
+.kb__title {
+  margin: 0; font-weight: 600; font-size: 32px; line-height: 36px; color: #111; text-align: center;
+}
+.kb__cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 48px; padding: 0 24px; border-radius: 12px;
+  background: #22b0f3; color: #fff; font-weight: 500; font-size: 16px; line-height: 22px;
+  text-decoration: none;
+  transition: transform .14s ease-out;
+}
+
+/* колонна */
+.kb__shadow {
+  position: absolute; left: 687px; top: 245px; width: 356px; height: 18px;
+  background: radial-gradient(closest-side, #737373, rgba(115,115,115,0));
+  border-radius: 50%;
+}
+/* геометрия колонны и корзинок — как картинка колонны в Figma (узел 15702:83179 из кадра 15702:83149: 306x279, top -16, object-contain → масштаб 0.64434 к PSD) */
+/* isolation: z-index смены колонн живёт внутри блока и не поднимает их над корзинками */
+.kb__cols { position: absolute; left: 699.15px; top: -21.15px; width: 289.95px; height: 285.44px; isolation: isolate; }
+.kb__col {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0;
+  transition: opacity .38s ease, transform 1s var(--kb-col-ease);
+  will-change: opacity, transform;
+}
+.kb__col.is-on { opacity: 1; transform: none; }
+/* корзинки — статичны, поверх колонн */
+.kb__baskets { position: absolute; left: 801.6px; top: 179.24px; width: 134.67px; height: 83.76px; pointer-events: none; }
+
+/* стрелки */
+.kb__arrow {
+  position: absolute; top: 101.5px; width: 40px; height: 40px; padding: 8px;
+  border: 0; border-radius: 28px; background: #fff;
+  filter: drop-shadow(0 4px 10px rgba(180,180,180,.25));
+  display: flex; align-items: center; justify-content: center;
+  color: #111; /* иконка; ховер — #22b0f3 по Figma (Round Button, узел 15712:93531) */
+  transition: transform .14s ease-out, color .15s ease;
+  cursor: pointer;
+}
+.kb__arrow svg { width: 24px; height: 24px; display: block; }
+.kb__arrow:hover, .kb__arrow.is-hover { color: #22b0f3; } /* is-hover — под курсором анимации */
+.kb__arrow--prev { left: 637px; }
+.kb__arrow--next { left: 851px; }
+.kb__arrow--next svg { transform: scaleX(-1); }
+.kb__arrow.is-pressed, .kb__cta.is-pressed { transform: scale(.9); transition-duration: .09s; }
+
+/* шаги справа */
+.kb__steps { position: absolute; left: 932px; top: 0; width: 344px; height: 243px; overflow: hidden; }
+.kb__track {
+  position: absolute; left: 30px; top: 0;
+  display: flex; flex-direction: column; gap: 16px;
+  will-change: transform;
+}
+.kb__card {
+  position: relative; width: 290px;
+  padding: 15px 40px 17.5px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: #fff; border-radius: 20px;
+  filter: drop-shadow(0 0 7.5px rgba(0,0,0,.15));
+}
+.kb__card p { margin: 0; padding-bottom: 2.5px; font-weight: 500; font-size: 17.5px; line-height: 25px; color: #000; white-space: nowrap; }
+.kb__card img { width: 55px; height: 55px; display: block; flex: none; }
+.kb__num {
+  position: absolute; left: -21.5px; top: 50%; width: 43px; height: 43px; margin-top: -21.5px;
+  border-radius: 50%; background: #4238f5;
+  color: #fff; font-weight: 800; font-size: 17.5px; line-height: 43px; text-align: center;
+}
+
+/* курсор-демонстратор */
+.kb__cursor {
+  position: absolute; left: 0; top: 0; width: 22px; height: 32px;
+  pointer-events: none; z-index: 5;
+  transform-origin: 2px 2px;
+  will-change: transform;
+}
+.kb__cursor svg { display: block; width: 100%; height: 100%; transition: transform .12s ease-out; transform-origin: 2px 2px; }
+.kb__cursor.is-pressed svg { transform: scale(.85); transition-duration: .08s; }

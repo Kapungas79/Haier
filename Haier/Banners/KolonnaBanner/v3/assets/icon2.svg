@@ -1,0 +1,28 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="55" height="55" viewBox="0 0 55 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 1">
+<rect id="Rectangle 93995" width="55" height="55" rx="5" fill="#E9F7FE"/>
+<rect id="Rectangle 93989" x="15.2295" y="10.625" width="25.3947" height="32.5" rx="2.92763" fill="white" stroke-width="1.25" stroke="#4B4B4B"/>
+<g id="Ellipse 5">
+<ellipse cx="27.9288" cy="30.2502" rx="9.1153" ry="8.775" fill="white"/>
+<mask id="stroke0_0_74" fill="white">
+<path d="M37.0441 30.2502C37.0441 35.0965 32.963 39.0252 27.9288 39.0252C22.8945 39.0252 18.8135 35.0965 18.8135 30.2502C18.8135 25.4039 22.8945 21.4752 27.9288 21.4752C32.963 21.4752 37.0441 25.4039 37.0441 30.2502Z"/>
+</mask>
+<ellipse cx="27.9288" cy="30.2502" rx="9.1153" ry="8.775" stroke-width="2.5" stroke="#4B4B4B" mask="url(#stroke0_0_74)"/>
+</g>
+<g id="Ellipse 3">
+<ellipse cx="33.1841" cy="14.3874" rx="1.05177" ry="1.0125" fill="white"/>
+<ellipse cx="33.1841" cy="14.3874" rx="1.05177" ry="1.0125" fill="#4B4B4B"/>
+</g>
+<g id="Ellipse 4">
+<ellipse cx="35.9892" cy="14.3874" rx="1.05177" ry="1.0125" fill="white"/>
+<ellipse cx="35.9892" cy="14.3874" rx="1.05177" ry="1.0125" fill="#4B4B4B"/>
+</g>
+<g id="Intersect">
+</g>
+<g id="Group 6">
+<path id="Vector 4" d="M31.5587 25.4077L30.9852 26.3924C30.3416 27.4975 30.3416 28.8632 30.9852 29.9683L31.3248 30.5514C31.9684 31.6565 31.9684 33.0222 31.3248 34.1273L30.8092 35.0125" stroke-width="1.33224" stroke-linecap="round" stroke="#4B4B4B"/>
+<path id="Vector 5" d="M28.3287 25.4077L27.7552 26.3924C27.1116 27.4975 27.1116 28.8632 27.7552 29.9683L28.0948 30.5514C28.7384 31.6565 28.7384 33.0222 28.0948 34.1273L27.5793 35.0125" stroke-width="1.33224" stroke-linecap="round" stroke="#4B4B4B"/>
+<path id="Vector 6" d="M25.1012 25.4077L24.5277 26.3924C23.884 27.4975 23.884 28.8632 24.5277 29.9683L24.8672 30.5514C25.5109 31.6565 25.5109 33.0222 24.8672 34.1273L24.3517 35.0125" stroke-width="1.33224" stroke-linecap="round" stroke="#4B4B4B"/>
+</g>
+</g>
+</svg>
