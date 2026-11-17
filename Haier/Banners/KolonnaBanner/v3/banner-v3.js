@@ -136,16 +136,19 @@
   /* ---------- смена машин (как смена колонн в варианте 1) ---------- */
   const SHIFT = 30, LAG = 140;
   let wi = 0, di = 0, z = 1;
+  const SWAP_MS = 1000;                 // реальные мс
+  const SWAP_EASE = 'cubic-bezier(.165, .84, .44, 1)';   // Out Quart (заказчик)
   function swap(list, i, dir, pulled = 0) {   // pulled — насколько палец уже утянул старую
     const old = list[i], j = (i + dir + list.length) % list.length, nw = list[j];
-    old.style.transition = `opacity ${300 / SPEED}ms ease ${LAG / SPEED}ms, transform ${1000 / SPEED}ms var(--kb-col-ease)`;
+    const T = `${SWAP_MS}ms ${SWAP_EASE}`;   // смена — Out Quart, 1 с: старая влево в прозрачность, новая справа из прозрачности
+    old.style.transition = `opacity ${T}, transform ${T}`;
     old.classList.remove('is-on');
     old.style.transform = `translateX(${-dir * SHIFT - pulled}px)`;
     nw.style.zIndex = ++z;
     nw.style.transition = 'none';
     nw.style.transform = `translateX(${dir * SHIFT}px)`;
     nw.offsetHeight;
-    nw.style.transition = `opacity ${380 / SPEED}ms ease, transform ${1000 / SPEED}ms var(--kb-col-ease)`;
+    nw.style.transition = `opacity ${SWAP_MS / 2}ms ${SWAP_EASE}, transform ${T}`;   // новая проявляется вдвое быстрее — дольше непрозрачная
     nw.style.transform = '';
     nw.classList.add('is-on');
     return j;
@@ -171,18 +174,18 @@
 
   // соединитель появляется посередине зазора, затем оба опускаются с разной скоростью:
   // соединитель ложится на стиральную первым, сушилка догоняет и садится на него
+  // соединитель уже висит посередине зазора, когда поднимаемся к сушилке (в цвет модели — тёмный)
+  function linkReady() {
+    const l = links[di];
+    l.items.forEach((im, k) => {         // виден подходящий, круг из 3 кликов вернёт к нему
+      im.style.transition = 'none'; im.style.transform = ''; im.classList.toggle('is-on', k === 0);
+    });
+    l.style.transition = 'none';
+    l.style.transform = `translateY(${-GAP / 2}px)`;   // зазор = GAP + плита → плита ровно посередине
+    l.style.opacity = 1;
+  }
   async function join() {
     const l = links[di];
-    const mid = -GAP / 2;
-    l.items.forEach((im, k) => {         // старт: виден подходящий, круг из 3 кликов вернёт к нему
-      im.style.transition = 'none'; im.style.transform = ''; im.classList.toggle('is-on', k === 0);
-    });                            // зазор между низом сушилки и верхом стиральной = GAP + плита → плита ровно посередине
-    l.style.transition = 'none';
-    l.style.transform = `translateY(${mid}px)`;
-    l.offsetHeight;
-    l.style.transition = `opacity ${350 / SPEED}ms ease`;
-    l.style.opacity = 1;
-    await wait(450);
     target = 'link'; li = 0;
     await clicks(3);                    // перебираем 3 соединителя — как машины
     await wait(900);
@@ -290,7 +293,7 @@
       await clicks(3);   // тёмная → белая → белая с хромом → тёмная
       await wait(900);
       // B — сушилки
-      dryShow(true);
+      dryShow(true); linkReady();      // между машинами уже висит их соединитель
       await Promise.all([setY(focusY(1), STEP_MS, ZOOM_EASE), cam(CAM.dryer, 2000, ZOOM_EASE)]);   // подъём к сушилке — In Out Cubic, 1 с
       target = 'dryer';
       await wait(300);
