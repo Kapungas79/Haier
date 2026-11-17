@@ -38,7 +38,7 @@
     const g = G.models[n], im = new Image();
     im.src = src; im.alt = ''; im.className = cls; im.decoding = 'async';
     const left = (box.classList.contains('kb__link') ? CW - parseFloat(box.style.left || 0) : CW) - g.cx[kind];
-    Object.assign(im.style, { left: left + 'px', top: top + 'px', width: g.w + 'px' });
+    Object.assign(im.style, { left: left + 'px', top: top + 'px', width: ((g.wk && g.wk[kind]) || g.w) + 'px' });   // у каждой картинки своя ширина
     box.appendChild(pic(im)); return im;
   };
   const dryBox = root.querySelector('.kb__dryers');

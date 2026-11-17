@@ -146,3 +146,9 @@ picture { display: contents; }   /* <picture> не даёт своей коро�
 .kb.is-gone .kb__arrow { opacity: 0; pointer-events: none; }
 .kb.is-gone .kb__arrow--prev { transform: translateX(-20px); }
 .kb.is-gone .kb__arrow--next { transform: translateX(20px); }
+/* v3b: один раз в начале круга, когда плашки доехали, — у всех сразу быстро проявляются текст и иконки (иконка — с поворотом по часовой) */
+.kb--build .kb__card .kb__ico { opacity: 0; transform: rotate(-24deg) scale(.86); }
+.kb--build .kb__card.is-built .kb__ico { opacity: 1; transform: none; transition: opacity .3s cubic-bezier(.645, .045, .355, 1), transform .3s cubic-bezier(.645, .045, .355, 1); }
+.kb--build .kb__card p { opacity: 0; }
+.kb--build .kb__card.is-built p { opacity: 1; transition: opacity .3s cubic-bezier(.645, .045, .355, 1); }
+.kb--build .kb__card.is-reset .kb__ico, .kb--build .kb__card.is-reset p { transition: none !important; }

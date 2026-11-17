@@ -40,7 +40,7 @@
     const g = G.models[n], im = new Image();
     im.src = src; im.alt = ''; im.className = cls; im.decoding = 'async';
     const left = (box.classList.contains('kb__link') ? CW - parseFloat(box.style.left || 0) : CW) - g.cx[kind];
-    Object.assign(im.style, { left: left + 'px', top: top + 'px', width: g.w + 'px' });
+    Object.assign(im.style, { left: left + 'px', top: top + 'px', width: ((g.wk && g.wk[kind]) || g.w) + 'px' });   // у каждой картинки своя ширина
     box.appendChild(pic(im)); return im;
   };
   const dryBox = root.querySelector('.kb__dryers');
@@ -127,6 +127,20 @@
   // плашки едут «гусеницей»: верхняя (ведущая — всё движется вверх) первой, каждая следующая через 0.08 с
   const CATER = 80 * SPEED;              // задержка между плашками 0.08 с, ед. wait
   const cards = [...track.children];
+
+  // сборка плашки: квадратик с иконкой — поворот по часовой из прозрачности; текст сразу
+  const buildTimers = [];
+  function buildCard(i, after) {         // after — через сколько (ед. wait) плашка доедет
+    buildTimers.push(setTimeout(() => {
+      cards[i].classList.add('is-built');
+    }, after / SPEED));
+  }
+  function clearCards() {                // мгновенно, пока плашки за кадром
+    buildTimers.splice(0).forEach(clearTimeout);
+    cards.forEach((c) => { c.classList.add('is-reset'); c.classList.remove('is-built'); });
+    track.offsetHeight;
+    cards.forEach((c) => c.classList.remove('is-reset'));
+  }
   const setY = (y, ms, ease = EASE) => {
     cards.forEach((c, i) => {
       c.style.transition = ms ? `transform ${ms / SPEED}ms ${ease} ${i * CATER / SPEED}ms` : 'none';
@@ -297,6 +311,7 @@
     dryShow(false); unjoin();
     cam(CAM.washer, 0);
     setY(VIEW_H + 20, 0);               // до «Начать подбор» плашек и стрелок нет
+    clearCards();
     root.classList.add('is-out');
     place();
     await wait(600);
@@ -308,6 +323,7 @@
       // после нажатия: плашки выезжают снизу, стрелки из центра расходятся — In Out Cubic, 1 с
       root.classList.add('is-arrows-in');
       root.classList.remove('is-out');
+      [0, 1, 2].forEach((i) => buildCard(i, STEP_MS));   // плашки доехали — у всех сразу текст и иконки, один раз за круг
       await Promise.all([setY(focusY(0), STEP_MS, ZOOM_EASE), moveTo(NEXT, 1000)]);
       root.classList.remove('is-arrows-in');
       // A — стиральные
@@ -340,6 +356,7 @@
       // назад к стиральной, плашки — снизу заново, стрелки возвращаются
       await setY(-track.offsetHeight - 20, STEP_MS, ZOOM_EASE);
       setY(VIEW_H + 20, 0); track.offsetHeight;   // плашки ждут внизу следующего «Начать подбор»
+      clearCards();                     // в новом круге плашки снова собираются с нуля
       // уход из финала: сушилка улетает вверх и гаснет, через 0.25 с — соединитель, и камера приближается к стиральной
       const sOut = outCam(ORDER[di]).s, FLY = 25 / sOut;   // ~25 px на экране при отдалении
       flyUp(dryBox, FLY, 1200);
